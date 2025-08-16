@@ -154,7 +154,16 @@ function getStateSettings(settings) {
         node.value = stateSettingValue;
         break;
       case 'range':
-        node.value = stateSettingValue * 10;
+        if (id === 'popupWidthPercentage' || id === 'popupHeightPercentage') {
+          node.value = stateSettingValue;
+          const displayId = id + 'Display';
+          const displayInput = document.getElementById(displayId);
+          if (displayInput) {
+            displayInput.value = stateSettingValue;
+          }
+        } else {
+          node.value = stateSettingValue * 10;
+        }
         break;
       default: break;
     }
@@ -166,6 +175,28 @@ function getStateSettings(settings) {
 // Decides which action to dispatch based on the input that changed
 function configureSettingListeners(dispatch) {
   return function attachEventListeners(node) {
+    if (node.id === 'popupWidthPercentage' || node.id === 'popupHeightPercentage') {
+      const displayId = node.id + 'Display';
+      const displayInput = document.getElementById(displayId);
+      
+      // Sync range input with display input
+      node.addEventListener('input', (event) => {
+        if (displayInput) {
+          displayInput.value = event.target.value;
+        }
+      });
+      
+      // Sync display input with range input
+      if (displayInput) {
+        displayInput.addEventListener('input', (event) => {
+          const value = parseInt(event.target.value, 10);
+          if (value >= 50 && value <= 200) {
+            node.value = value;
+          }
+        });
+      }
+    }
+    
     node.addEventListener('change', (event) => {
       // Figure out which action to dispatch based on the node's props
       const {
@@ -179,7 +210,11 @@ function configureSettingListeners(dispatch) {
       const settingKey = settingsLocation[settingsLocation.length - 1];
       switch (type) {
         case 'range': {
-          dispatch(updateFuzzyThresholdRange(parseInt(value, 10)));
+          if (id === 'popupWidthPercentage' || id === 'popupHeightPercentage') {
+            dispatch(updateNumber(settingKey, parseInt(value, 10)));
+          } else {
+            dispatch(updateFuzzyThresholdRange(parseInt(value, 10)));
+          }
           break;
         }
         case 'checkbox': {

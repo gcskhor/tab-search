@@ -292,6 +292,30 @@ legend {
   margin: 0 auto;
 }
 
+#popupWidthPercentageDisplay,
+#popupHeightPercentageDisplay {
+  display: inline-block;
+  margin: 0;
+  width: 60px;
+}
+
+.input-range {
+  width: 200px;
+  margin: 0 10px;
+}
+
+.range-clarification {
+  font-size: 0.9em;
+  margin: 0 5px;
+}
+
+.fixed-width {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  margin-right: 10px;
+}
+
 .delete-circle {
   height: 12px;
   cursor: pointer;
