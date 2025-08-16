@@ -163,14 +163,15 @@ header {
   display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 20rem;
+	width: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 0;
-  padding-right: 3rem;
+  padding-right: 0;
   cursor: pointer;
   /* For chrome to prevent box shrinking */
   flex-shrink: 0;
+  position: relative;
 }
 
 .tab-object:focus {
@@ -182,6 +183,13 @@ header {
 .tab-object:focus {
   background-color: var(--tabFocusColor);
   color: white;
+}
+
+.tab-object:hover {
+  background-color: var(--tabFocusColor);
+  color: white;
+  margin-right: 0;
+  padding-right: 0;
 }
 
 .tab-img {
@@ -269,10 +277,14 @@ removes the extra space added by the pseudoelement
 }
 
 .tab-object .tab-object__delete-button {
-  position: relative;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   visibility: hidden;
-  margin-right: -16px;
-  transform: translateX(calc(0.9 * var(--bodyWidth) - 8px));
+  height: 16px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .tab-object.nowrap .tab-title {
@@ -301,6 +313,8 @@ removes the extra space added by the pseudoelement
 .tab-object > .tab-info {
   flex: 1;
   min-width: 0;
+  margin-right: 50px;
+  max-width: calc(100% - 50px);
 }
 
 .tab-title {

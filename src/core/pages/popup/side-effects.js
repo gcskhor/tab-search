@@ -33,6 +33,56 @@ function openSettingsPage() {
   }).then(() => window.close());
 }
 
+function applyPopupDimensions(store) {
+  const { popupWidthPercentage, popupHeightPercentage } = store.getState().general;
+  
+  const baseWidth = 355;
+  const baseHeight = 450;
+  const headerHeight = 48;
+  
+  const newWidth = Math.round((baseWidth * popupWidthPercentage) / 100);
+  const newHeight = Math.round((baseHeight * popupHeightPercentage) / 100);
+  
+  setStyleSheetRule(':root', '--bodyWidth', `${newWidth}px`);
+  setStyleSheetRule(':root', '--headerHeight', `${headerHeight}px`);
+  
+  setStyleSheetRule('body', 'width', `${newWidth}px`);
+  
+  setStyleSheetRule('header', 'width', `${newWidth}px`);
+  
+  setStyleSheetRule('.tab-list', 'height', `${newHeight}px`);
+  
+  const searchFormWidth = Math.min(300, newWidth - 20);
+  setStyleSheetRule('.search-form', 'width', `${searchFormWidth}px`);
+  
+  setStyleSheetRule('.search', 'width', `${searchFormWidth}px`);
+  
+  const noResultWidth = Math.min(320, newWidth - 35);
+  setStyleSheetRule('.no-result', 'width', `${noResultWidth}px`);
+  
+  // Update tab-info paragraph width (proportional to popup width)
+  // This is the container for tab titles and URLs - make it use most of the available width
+  const tabInfoWidth = Math.max(225, newWidth - 150); // Ensure minimum width but scale with popup
+  setStyleSheetRule('.tab-info > p', 'width', `${tabInfoWidth}px`);
+  
+  // Update tab-title width to use more space when popup is wider
+  const tabTitleWidth = Math.max(225, newWidth - 150);
+  setStyleSheetRule('.tab-title', 'max-width', `${tabTitleWidth}px`);
+  
+  // Update tab-info container width to accommodate the expanded content
+  const tabInfoContainerWidth = Math.max(225, newWidth - 150);
+  setStyleSheetRule('.tab-info', 'min-width', `${tabInfoContainerWidth}px`);
+  
+  // Allow text wrapping when popup is wide enough
+  if (newWidth > 400) {
+    setStyleSheetRule('.tab-info > p', 'white-space', 'normal');
+    setStyleSheetRule('.tab-title', 'white-space', 'normal');
+  } else {
+    setStyleSheetRule('.tab-info > p', 'white-space', 'nowrap');
+    setStyleSheetRule('.tab-title', 'white-space', 'nowrap');
+  }
+}
+
 export function overrideDomStyleSheets(store) {
   const colorState = store.getState().color;
   const typeClassName = type => `.${type}`;
@@ -49,6 +99,9 @@ export function overrideDomStyleSheets(store) {
     )
     .map(key => COLOR_PROPERTY_TYPE_MAP[key])
     .forEach(setColor);
+  
+  applyPopupDimensions(store);
+  
   return store;
 }
 
@@ -63,6 +116,22 @@ export function addEventListeners(store) {
       document.body.classList.add('dark-mode');
     } else {
       document.body.classList.remove('dark-mode');
+    }
+  });
+  
+  // Subscribe to popup dimension changes
+  store.subscribe(() => {
+    const { popupWidthPercentage, popupHeightPercentage } = store.getState().general;
+    const currentDimensions = {
+      width: popupWidthPercentage,
+      height: popupHeightPercentage
+    };
+    
+    if (!store._lastDimensions || 
+        store._lastDimensions.width !== currentDimensions.width ||
+        store._lastDimensions.height !== currentDimensions.height) {
+      store._lastDimensions = currentDimensions;
+      applyPopupDimensions(store);
     }
   });
   

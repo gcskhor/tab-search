@@ -37,6 +37,8 @@ export const initialGeneralSettings = {
   tabUrlSize: 11,
   tabTitleSize: 13,
   enableDarkMode: false,
+  popupWidthPercentage: 100,
+  popupHeightPercentage: 100,
 };
 
 export const initialState = {
