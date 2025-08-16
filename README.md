@@ -8,6 +8,16 @@ Easy tab search & switching. This WebExtension provides a keyboard-accessible se
 
 ![screenshot](https://user-images.githubusercontent.com/9971847/36081161-401e4af4-0f69-11e8-910f-ad89d44a7b5a.png)
 
+## Features
+
+- **Smart Tab Search**: Fuzzy search through open tabs, bookmarks, and history
+- **Dark Mode**: Toggle between light and dark themes for better visibility in different lighting conditions
+- **Customizable Popup Dimensions**: Adjust popup width and height (50% to 200% of default size)
+- **Keyboard Navigation**: Full keyboard support for power users
+- **Tab Management**: Pin, refresh, mute, and organize tabs efficiently
+- **Cross-Window Support**: Search and manage tabs across all browser windows
+- **Visual Customization**: Customize colors, fonts, and layout preferences
+
 ## Shortcuts
 
 | Shortcut | Description |
@@ -22,6 +32,23 @@ Easy tab search & switching. This WebExtension provides a keyboard-accessible se
 | <kbd>Ctrl</kbd> + <kbd>C</kbd> | Copy Tab URL
 | <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Delete all duplicate tabs
 | <kbd>Alt</kbd> + <kbd>M</kbd> | Mute (only if tab is audible)
+
+## Customization
+
+### Dark Mode
+Enable dark mode in the settings to switch between light and dark themes. Perfect for low-light environments or users who prefer dark interfaces.
+
+### Popup Dimensions
+Customize the popup size to fit your workflow:
+- **Width**: Adjust from 50% to 200% of default size
+- **Height**: Scale from 50% to 200% of default height
+- **Responsive Layout**: Content automatically adapts to your chosen dimensions
+
+### Appearance Settings
+- Custom colors for different tab types
+- Font size adjustments for tab titles and URLs
+- Visual delete buttons for tab management
+- One-line tab titles option
 
 ## Usage
 
