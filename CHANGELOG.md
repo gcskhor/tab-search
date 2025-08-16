@@ -8,8 +8,19 @@
 - Move tabs
 - Focus active tab in list on popup initialization
 - Compact layout
-- Dark theme
 - Vertically centered overlay
+
+## 0.5.0 (2025-08-16)
+
+- **New Feature**: Dark Mode Theme
+  + Toggle between light and dark themes for better visibility
+  + Automatic theme switching in both popup and settings pages
+  + Consistent dark styling across all UI elements
+- **New Feature**: Customizable Popup Dimensions
+  + Adjust popup width from 50% to 200% of default size
+  + Adjust popup height from 50% to 200% of default height
+  + Responsive layout that adapts content to chosen dimensions
+  + Real-time preview of dimension changes
 
 ## 0.4.8 (2018-04-04)
 
